@@ -18,7 +18,14 @@
 </form>
 <div class="media-grid">
   {% for asset in assets %}
-    <article class="media-card"><img src="{{ asset.file_path }}" alt="{{ asset.alt_text }}"><span>{{ asset.title }}</span><small>{{ asset.file_type }}</small></article>
+    <article class="media-card">
+      <img src="{{ asset.file_path }}" alt="{{ asset.alt_text }}">
+      <span>{{ asset.title }}</span>
+      <small>{{ asset.file_type }}</small>
+      <form method="post" action="{{ url_for('main.admin_delete_media', asset_id=asset.id) }}" onsubmit="return confirm('Delete this media item? This cannot be undone.');">
+        <button class="button button-danger" type="submit">Delete</button>
+      </form>
+    </article>
   {% endfor %}
 </div>
 {% endblock %}

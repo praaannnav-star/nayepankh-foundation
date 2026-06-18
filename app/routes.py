@@ -421,6 +421,28 @@ def admin_media():
     return render_template("admin/media.html", assets=assets)
 
 
+@bp.post("/admin/media/<int:asset_id>/delete")
+@admin_required
+def admin_delete_media(asset_id):
+    asset = MediaAsset.query.get_or_404(asset_id)
+    file_path = asset.file_path
+    uploaded_by = asset.uploaded_by
+    db.session.delete(asset)
+    db.session.commit()
+
+    # Files uploaded through the dashboard are runtime-owned. Imported assets
+    # remain in the repository, while removing their DB record hides them.
+    if uploaded_by == "admin" and file_path.startswith("/static/uploads/"):
+        relative_path = file_path.removeprefix("/static/uploads/")
+        target = (Path(current_app.config["UPLOAD_ROOT"]) / relative_path).resolve()
+        upload_root = Path(current_app.config["UPLOAD_ROOT"]).resolve()
+        if upload_root in target.parents and target.is_file():
+            target.unlink()
+
+    flash("Media deleted.")
+    return redirect(url_for("main.admin_media"))
+
+
 @bp.route("/admin/certificates", methods=["GET", "POST"])
 @admin_required
 def admin_certificates():
