@@ -10,8 +10,7 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    preDeployCommand: python scripts/render_release.py
-    startCommand: gunicorn run:app
+    startCommand: python scripts/render_release.py && gunicorn run:app
     healthCheckPath: /healthz
     envVars:
       - key: PYTHON_VERSION

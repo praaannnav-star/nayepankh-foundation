@@ -60,10 +60,10 @@ Use [render.yaml](C:/Users/Pranav/Documents/naypank/render.yaml) from the reposi
    - `ADMIN_PASSWORD`
    - `ADMIN_NAME`
 5. Deploy.
-6. Deploy. The Blueprint runs this automatically before startup:
+6. Deploy. On the free tier, the Blueprint initializes the database immediately before starting Gunicorn:
 
 ```bash
-python scripts/render_release.py
+python scripts/render_release.py && gunicorn run:app
 ```
 
 The app starts with:
