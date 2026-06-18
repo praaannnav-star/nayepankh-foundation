@@ -16,6 +16,15 @@ def ensure_default_admin():
 
     user = User.query.filter_by(email=email).first()
     if user:
+        # Render environment variables are the source of truth for the
+        # deployment administrator. Synchronize them on startup so a lost or
+        # changed password can be recovered without editing the database.
+        if os.environ.get("ADMIN_EMAIL") and os.environ.get("ADMIN_PASSWORD"):
+            user.name = name
+            user.password_hash = hash_password(password)
+            user.role = "admin"
+            user.is_active = True
+            db.session.commit()
         return user, False
 
     user = User(
