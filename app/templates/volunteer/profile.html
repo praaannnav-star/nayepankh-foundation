@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block content %}
+<main class="content-shell"><p class="eyebrow">Volunteer portal</p><h1>Update your profile</h1>
+<form method="post" class="form card-form">
+<label>Full name<input name="name" value="{{ volunteer.name }}" required></label><label>Phone<input name="phone" value="{{ profile.phone }}"></label><label>City<input name="city" value="{{ profile.city }}"></label>
+<label>Interests<input name="interests" value="{{ profile.interests }}"></label><label>Skills<textarea name="skills">{{ profile.skills }}</textarea></label><label>Availability<input name="availability" value="{{ profile.availability }}"></label>
+<label>Motivation<textarea name="motivation">{{ profile.motivation }}</textarea></label><label>Emergency contact<input name="emergency_contact" value="{{ profile.emergency_contact }}"></label><button>Save profile</button></form></main>
+{% endblock %}

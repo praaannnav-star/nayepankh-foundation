@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Volunteer Login - NayePankh</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+  <main class="login-shell">
+    <section class="login-panel">
+      <h1>Volunteer Login</h1>
+      <p class="login-subtitle">Access your volunteer portal</p>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}<div class="flash">{{ messages | join(' ') }}</div>{% endif %}
+      {% endwith %}
+      <form method="post" class="form">
+        <label>Email<input name="email" type="email" autocomplete="email" required autofocus></label>
+        <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="button" type="submit">Login</button>
+      </form>
+      <p class="login-footer">
+        Don't have an account? <a href="{{ url_for('main.volunteer_signup') }}">Create one</a>
+      </p>
+      <p class="login-footer">
+        <a href="{{ url_for('main.home') }}">Back to home</a>
+      </p>
+    </section>
+  </main>
+</body>
+</html>

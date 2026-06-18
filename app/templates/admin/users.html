@@ -1,0 +1,22 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<div class="admin-title"><h1>Users</h1><a class="button" href="{{ url_for('main.admin_user_form') }}">New User</a></div>
+<table>
+  <tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th></th></tr>
+  {% for user in users %}
+    <tr>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ 'Active' if user.is_active else 'Inactive' }}</td>
+      <td class="table-actions">
+        <a href="{{ url_for('main.admin_user_form', user_id=user.id) }}">Edit</a>
+        {% if admin_user.id != user.id %}
+          <form method="post" action="{{ url_for('main.admin_delete_user', user_id=user.id) }}"><button type="submit">Delete</button></form>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
+

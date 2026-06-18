@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Volunteer Account - NayePankh</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+  <main class="login-shell">
+    <section class="login-panel">
+      <h1>Create Account</h1>
+      <p class="login-subtitle">Join our community of changemakers</p>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}<div class="flash">{{ messages | join(' ') }}</div>{% endif %}
+      {% endwith %}
+      <form method="post" class="form">
+        <label>Full Name<input name="name" type="text" required autofocus></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <label>Phone<input name="phone" type="tel" required></label>
+        <label>City<input name="city" type="text" required></label>
+        <label>Areas of interest<select name="interests" required><option value="">Choose one</option><option>Education</option><option>Food distribution</option><option>Health & wellbeing</option><option>Fundraising</option><option>Digital & communications</option></select></label>
+        <label>Availability<select name="availability" required><option value="">Choose one</option><option>Weekdays</option><option>Weekends</option><option>Evenings</option><option>Flexible</option></select></label>
+        <label>Why would you like to volunteer?<textarea name="motivation" rows="3" required></textarea></label>
+        <label>Password<input name="password" type="password" autocomplete="new-password" required></label>
+        <label>Confirm Password<input name="confirm_password" type="password" autocomplete="new-password" required></label>
+        <button class="button" type="submit">Create Account</button>
+      </form>
+      <p class="login-footer">
+        Already have an account? <a href="{{ url_for('main.volunteer_login') }}">Login here</a>
+      </p>
+      <p class="login-footer">
+        <a href="{{ url_for('main.home') }}">Back to home</a>
+      </p>
+    </section>
+  </main>
+</body>
+</html>

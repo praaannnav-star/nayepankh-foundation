@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.meta_title or page.title if page else site.get('site_name', 'NayePankh Foundation') }}</title>
+  <meta name="description" content="{{ page.meta_description if page else '' }}">
+  {% if site.get('favicon') %}<link rel="icon" href="{{ site.get('favicon') }}">{% endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('main.home') }}">
+      {% if site.get('logo') %}<img src="{{ site.get('logo') }}" alt="{{ site.get('site_name', 'NayePankh Foundation') }} logo">{% endif %}
+      <span>{{ site.get('site_name', 'NayePankh Foundation') }}</span>
+    </a>
+    <nav>
+      <a href="{{ url_for('main.home') }}">Home</a>
+      <a href="{{ url_for('main.cms_page', slug='about-us') }}">About Us</a>
+      <a href="{{ url_for('main.certificates') }}">Certificates</a>
+      <a href="{{ url_for('main.media_recognition') }}">Media Recognition</a>
+      <a class="nav-pill" href="{{ url_for('main.cms_page', slug='donate') }}">Donate</a>
+      {% if volunteer_user %}
+        <a href="{{ url_for('main.volunteer_dashboard') }}">My Dashboard</a>
+        <a href="{{ url_for('main.volunteer_logout') }}" onclick="return confirm('Logout?')">Logout</a>
+      {% elif admin_user %}
+        <a href="{{ url_for('main.admin_dashboard') }}">Admin</a>
+      {% else %}
+        <a href="{{ url_for('main.admin_dashboard') }}">Admin</a>
+        <a href="{{ url_for('main.volunteer_login') }}">Volunteer</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div>
+      <strong>{{ site.get('site_name', 'NayePankh Foundation') }}</strong>
+      <p>{{ site.get('footer_content', 'UP Government, 80G and 12A registered NGO') }}</p>
+    </div>
+    <div>
+      <p>{{ site.get('contact_email', '') }}</p>
+      <p>{{ site.get('contact_phone', '') }}</p>
+      <p>{{ site.get('office_address', '') }}</p>
+    </div>
+    <div class="socials">
+      {% if site.get('instagram_url') %}<a href="{{ site.get('instagram_url') }}">Instagram</a>{% endif %}
+      {% if site.get('facebook_url') %}<a href="{{ site.get('facebook_url') }}">Facebook</a>{% endif %}
+      {% if site.get('youtube_url') %}<a href="{{ site.get('youtube_url') }}">YouTube</a>{% endif %}
+      {% if site.get('linkedin_url') %}<a href="{{ site.get('linkedin_url') }}">LinkedIn</a>{% endif %}
+    </div>
+  </footer>
+</body>
+</html>

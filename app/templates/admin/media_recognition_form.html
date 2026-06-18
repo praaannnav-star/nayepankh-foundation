@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h1>Edit Media Recognition</h1>
+<form method="post" enctype="multipart/form-data" class="form">
+  <label>Title<input name="title" value="{{ item.title }}" required></label>
+  <label>Image Path<input name="image" value="{{ item.image }}"></label>
+  <label>Upload Replacement<input name="image_file" type="file"></label>
+  <label>Publication<input name="publication_name" value="{{ item.publication_name }}"></label>
+  <label>Article Link<input name="article_link" value="{{ item.article_link }}"></label>
+  <label>Category<input name="category" value="{{ item.category }}"></label>
+  <button class="button" type="submit">Save</button>
+</form>
+{% endblock %}

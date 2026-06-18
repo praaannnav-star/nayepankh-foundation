@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h1>Media Recognition</h1>
+<form method="post" enctype="multipart/form-data" class="form inline-form">
+  <label>Title<input name="title" required></label>
+  <label>Image Path<input name="image"></label>
+  <label>Upload Image<input name="image_file" type="file"></label>
+  <label>Publication<input name="publication_name"></label>
+  <label>Article Link<input name="article_link"></label>
+  <label>Category<input name="category" value="newspaper"></label>
+  <button class="button" type="submit">Add</button>
+</form>
+<div class="media-grid">
+  {% for item in items %}
+    <article class="media-card"><img src="{{ item.image }}" alt="{{ item.title }}"><span>{{ item.title }}</span><small>{{ item.publication_name }}</small><a href="{{ url_for('main.admin_edit_media_recognition', item_id=item.id) }}">Edit</a><form method="post" action="{{ url_for('main.admin_delete_media_recognition', item_id=item.id) }}"><button>Delete</button></form></article>
+  {% endfor %}
+</div>
+{% endblock %}

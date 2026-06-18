@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content-band">
+  <h1>{{ page.title if page else 'Certificates' }}</h1>
+  {% if page %}<div class="rich-text">{{ page.content | safe }}</div>{% endif %}
+  <div class="media-grid">
+    {% for item in items %}
+      <a class="media-card" href="{{ item.image }}"><img src="{{ item.image }}" alt="{{ item.title }}"><span>{{ item.title }}</span></a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+

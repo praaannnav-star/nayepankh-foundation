@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<div class="admin-title"><h1>Pages</h1><a class="button" href="{{ url_for('main.admin_page_form') }}">New Page</a></div>
+<table>
+  <tr><th>Title</th><th>Slug</th><th>Status</th><th></th></tr>
+  {% for page in pages %}
+    <tr>
+      <td>{{ page.title }}</td><td>{{ page.slug }}</td><td>{{ page.status }}</td>
+      <td><a href="{{ url_for('main.admin_page_form', page_id=page.id) }}">Edit</a> | <a href="{{ url_for('main.admin_page_sections', page_id=page.id) }}">Sections</a></td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h1>Media Library</h1>
+<form method="post" enctype="multipart/form-data" class="form inline-form">
+  <label>Title<input name="title"></label>
+  <label>Alt Text<input name="alt_text"></label>
+  <label>Folder<select name="folder">
+    <option value="gallery">Gallery</option>
+    <option value="fundraisers">Fundraisers</option>
+    <option value="volunteers">Volunteers</option>
+    <option value="reports">Reports</option>
+    <option value="certificates">Certificates</option>
+    <option value="media-recognition">Media Recognition</option>
+    <option value="logos">Logos</option>
+  </select></label>
+  <label>File<input name="file" type="file" required></label>
+  <button class="button" type="submit">Upload</button>
+</form>
+<div class="media-grid">
+  {% for asset in assets %}
+    <article class="media-card"><img src="{{ asset.file_path }}" alt="{{ asset.alt_text }}"><span>{{ asset.title }}</span><small>{{ asset.file_type }}</small></article>
+  {% endfor %}
+</div>
+{% endblock %}

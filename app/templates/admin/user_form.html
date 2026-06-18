@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h1>{{ 'Edit' if user.id else 'New' }} User</h1>
+<form method="post" class="form">
+  <label>Name<input name="name" value="{{ user.name or '' }}" required></label>
+  <label>Email<input name="email" type="email" value="{{ user.email or '' }}" required></label>
+  <label>Role<select name="role">
+    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+    <option value="editor" {% if user.role == 'editor' %}selected{% endif %}>Editor</option>
+  </select></label>
+  <label>Password<input name="password" type="password" autocomplete="new-password" {% if not user.id %}required{% endif %}></label>
+  <label class="checkbox"><input name="is_active" type="checkbox" {% if user.is_active %}checked{% endif %}> Active</label>
+  <button class="button" type="submit">Save</button>
+</form>
+{% endblock %}

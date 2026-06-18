@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h1>{{ 'Edit' if page.id else 'New' }} Page</h1>
+<form method="post" class="form">
+  <label>Title<input name="title" value="{{ page.title or '' }}" required></label>
+  <label>Slug<input name="slug" value="{{ page.slug or '' }}" required></label>
+  <label>Meta Title<input name="meta_title" value="{{ page.meta_title or '' }}"></label>
+  <label>Meta Description<textarea name="meta_description">{{ page.meta_description or '' }}</textarea></label>
+  <label>Status<select name="status"><option value="published" {% if page.status == 'published' %}selected{% endif %}>Published</option><option value="draft" {% if page.status == 'draft' %}selected{% endif %}>Draft</option></select></label>
+  <label>Content<textarea name="content" rows="12">{{ page.content or '' }}</textarea></label>
+  <button class="button" type="submit">Save</button>
+</form>
+{% endblock %}
+

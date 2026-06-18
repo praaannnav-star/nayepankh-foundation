@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin - NayePankh CMS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+  <header class="site-header admin-header">
+    <a class="brand" href="{{ url_for('main.admin_dashboard') }}"><span>NayePankh CMS</span></a>
+    <nav>
+      <a href="{{ url_for('main.admin_pages') }}">Pages</a>
+      <a href="{{ url_for('main.admin_settings') }}">Settings</a>
+      <a href="{{ url_for('main.admin_media') }}">Media</a>
+      <a href="{{ url_for('main.admin_certificates') }}">Certificates</a>
+      <a href="{{ url_for('main.admin_media_recognition') }}">Recognition</a>
+      <a href="{{ url_for('main.admin_volunteers') }}">Volunteers</a>
+      {% if admin_user and admin_user.role == 'admin' %}
+        <a href="{{ url_for('main.admin_users') }}">Users</a>
+      {% endif %}
+      <a href="{{ url_for('main.home') }}">View Site</a>
+      {% if admin_user %}
+        <form method="post" action="{{ url_for('main.admin_logout') }}" class="logout-form">
+          <span>{{ admin_user.name }}</span>
+          <button type="submit">Logout</button>
+        </form>
+      {% endif %}
+    </nav>
+  </header>
+  <main class="admin-main">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}<div class="flash">{{ messages | join(' ') }}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,32 @@
+databases:
+  - name: nayepankh-db
+    databaseName: nayepankh
+    user: nayepankh
+    plan: free
+
+services:
+  - type: web
+    name: nayepankh-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    preDeployCommand: python scripts/render_release.py
+    startCommand: gunicorn run:app
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nayepankh-db
+          property: connectionString
+      - key: SOURCE_SITE_URL
+        value: https://nayepankh.com
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_NAME
+        sync: false

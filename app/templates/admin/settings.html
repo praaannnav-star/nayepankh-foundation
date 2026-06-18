@@ -1,0 +1,11 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h1>Settings</h1>
+<form method="post" class="form">
+  {% for setting in settings %}
+    <label>{{ setting.key }}<textarea name="{{ setting.key }}" rows="2">{{ setting.value }}</textarea></label>
+  {% endfor %}
+  <button class="button" type="submit">Save Settings</button>
+</form>
+{% endblock %}
+

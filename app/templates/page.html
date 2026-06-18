@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">{{ site.get('registration_badge', 'UP GOVERNMENT, 80G & 12A Registered NGO') }}</p>
+    <h1>{{ page.title }}</h1>
+    <div class="rich-text">{{ page.content | safe }}</div>
+    {% if is_home %}
+      <div class="hero-actions">
+        <a class="button" href="{{ url_for('main.cms_page', slug='donate') }}">Donate Now</a>
+        <a class="button button-secondary" href="#impact">See Impact</a>
+      </div>
+      <div class="impact-strip" id="impact" aria-label="NayePankh impact highlights">
+        <article><strong>2L+</strong><span>People helped</span></article>
+        <article><strong>80G</strong><span>Registered</span></article>
+        <article><strong>12A</strong><span>Certified NGO</span></article>
+      </div>
+      <a class="scroll-cue" href="#page-content" aria-label="Scroll to content">Scroll</a>
+    {% endif %}
+  </div>
+  {% if site.get('hero_image') %}
+    <div class="hero-media">
+      <img class="hero-image" src="{{ site.get('hero_image') }}" alt="{{ page.title }}">
+      {% if is_home %}<span>Serving communities with food, education, hygiene and care</span>{% endif %}
+    </div>
+  {% endif %}
+</section>
+
+<div id="page-content"></div>
+{% for section in page.sections if section.is_active %}
+  <section class="content-band">
+    <div class="section-shell">
+      <p class="eyebrow">{{ section.section_type }}</p>
+      <h2>{{ section.name }}</h2>
+      <div class="rich-text">{{ section.content | safe }}</div>
+    </div>
+  </section>
+{% endfor %}
+
+{% if is_home %}
+  <section class="content-band showcase-band">
+    <div class="section-heading">
+      <p class="eyebrow">Compliance</p>
+      <h2>Certificates</h2>
+    </div>
+    <div class="media-grid">
+      {% for item in certificates %}
+        <a class="media-card" href="{{ item.image }}"><img src="{{ item.image }}" alt="{{ item.title }}"><span>{{ item.title }}</span></a>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="content-band showcase-band">
+    <div class="section-heading">
+      <p class="eyebrow">Recognition</p>
+      <h2>Media Recognition</h2>
+    </div>
+    <div class="media-grid">
+      {% for item in recognitions %}
+        <a class="media-card" href="{{ item.image }}"><img src="{{ item.image }}" alt="{{ item.title }}"><span>{{ item.title }}</span></a>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="content-band showcase-band">
+    <div class="section-heading">
+      <p class="eyebrow">Field Work</p>
+      <h2>Gallery</h2>
+    </div>
+    <div class="media-grid">
+      {% for item in gallery %}
+        <a class="media-card" href="{{ item.file_path }}"><img src="{{ item.file_path }}" alt="{{ item.alt_text }}"><span>{{ item.title }}</span></a>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+{% endblock %}

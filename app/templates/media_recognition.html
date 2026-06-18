@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content-band">
+  <h1>{{ page.title if page else 'Media Recognition' }}</h1>
+  {% if page %}<div class="rich-text">{{ page.content | safe }}</div>{% endif %}
+  <div class="media-grid">
+    {% for item in items %}
+      <article class="media-card">
+        <img src="{{ item.image }}" alt="{{ item.title }}">
+        <span>{{ item.title }}</span>
+        <small>{{ item.publication_name }}{% if item.category %} - {{ item.category }}{% endif %}</small>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+

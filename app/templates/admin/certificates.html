@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h1>Certificates</h1>
+<form method="post" enctype="multipart/form-data" class="form inline-form">
+  <label>Title<input name="title" required></label>
+  <label>Image Path<input name="image"></label>
+  <label>Upload Image<input name="image_file" type="file"></label>
+  <label>Type<input name="certificate_type" value="registration"></label>
+  <button class="button" type="submit">Add</button>
+</form>
+<div class="media-grid">
+  {% for item in items %}
+    <article class="media-card"><img src="{{ item.image }}" alt="{{ item.title }}"><span>{{ item.title }}</span><a href="{{ url_for('main.admin_edit_certificate', item_id=item.id) }}">Edit</a><form method="post" action="{{ url_for('main.admin_delete_certificate', item_id=item.id) }}"><button>Delete</button></form></article>
+  {% endfor %}
+</div>
+{% endblock %}

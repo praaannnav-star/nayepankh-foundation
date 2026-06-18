@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="stat-grid">
+  {% for label, value in counts.items() %}
+    <article><strong>{{ value }}</strong><span>{{ label }}</span></article>
+  {% endfor %}
+</div>
+{% endblock %}
+
